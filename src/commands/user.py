@@ -8,7 +8,7 @@ from ..util import (
 from ..output import emit
 
 
-@click.command("user")
+@click.command("user", help="Pull all the comments of a particular user")
 @click.argument("user")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def command(user, sort, after_id, after_time, max):

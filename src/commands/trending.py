@@ -3,7 +3,7 @@ import requests
 from ..output import emit
 
 
-@click.command("trending")
+@click.command("trending", help="Pull the current trending URLs")
 def command():
     data = requests.get("https://dissenter.com/url").json()
 

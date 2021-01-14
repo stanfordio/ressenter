@@ -8,7 +8,7 @@ from ..util import (
 from ..output import emit
 
 
-@click.command("comments")
+@click.command("comments", help="Pull all the most recent comments")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def command(sort, after_id, after_time, max):
     after_id = int(after_id.strip(), 16)
