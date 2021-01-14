@@ -1,6 +1,7 @@
 import json
 import unicodecsv as csv
 from datetime import datetime
+from .util import flatten
 import sys
 
 _format = "jsonl"
@@ -31,6 +32,7 @@ def emit(obj: dict):
     if _format == "jsonl":
         _output.write((json.dumps(obj) + "\n").encode("utf-8"))
     elif _format == "csv":
+        obj = flatten(obj)
         if _csv_writer == None:
             _csv_writer = csv.DictWriter(_output, obj.keys())
             _csv_writer.writeheader()
