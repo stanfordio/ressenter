@@ -55,6 +55,12 @@ def parse_int(text: str) -> int:
     text = text.replace(",", "")
     return int(text)
 
+def try_get(func):
+    try:
+        return func()
+    except:
+        return None
+
 def pull_url_id(url: str) -> str:
     resp = requests.get(
         f"https://dissenter.com/discussion/begin?" + urllib.parse.urlencode({"url": url})
@@ -72,31 +78,31 @@ def pull_comments_page(**kwargs):
     for comment_elem in soup.find_all("div", class_="comment-container"):
         comments.append(
             {
-                "id": comment_elem.get("data-comment-id").strip(),
-                "author_id": comment_elem.get("data-author-id").strip(),
-                "author_name": comment_elem.find("span", class_="profile-name").text,
-                "author_url": comment_elem.find(
+                "id": try_get(lambda: comment_elem.get("data-comment-id").strip()),
+                "author_id": try_get(lambda: comment_elem.get("data-author-id").strip()),
+                "author_name": try_get(lambda: comment_elem.find("span", class_="profile-name").text),
+                "author_url": try_get(lambda: comment_elem.find(
                     "a", {"target": "dissenter-profile"}
-                ).get("href"),
-                "url": comment_elem.find("a", {"target": "dissenter-item"}).get("href"),
-                "url_upvotes": parse_int(
+                ).get("href")),
+                "url": try_get(lambda: comment_elem.find("a", {"target": "dissenter-item"}).get("href")),
+                "url_upvotes": try_get(lambda: parse_int(
                     comment_elem.find("span", class_="stat-upvotes").text
-                ),
-                "url_downvotes": parse_int(
+                )),
+                "url_downvotes": try_get(lambda: parse_int(
                     comment_elem.find("span", class_="stat-downvotes").text
-                ),
-                "url_comments": parse_int(
+                )),
+                "url_comments": try_get(lambda: parse_int(
                     comment_elem.find(
                         "div", class_="row no-gutters align-items-center ml-auto"
                     ).text.split(" ")[0]
-                ),
-                "text": comment_elem.find("div", class_="comment-body").text,
-                "replies": parse_int(
+                )),
+                "text": try_get(lambda: comment_elem.find("div", class_="comment-body").text),
+                "replies": try_get(lambda: parse_int(
                     comment_elem.find("span", class_="stat-replies").text
-                ),
-                "time": parse_date(
+                )),
+                "time": try_get(lambda: parse_date(
                     comment_elem.find("a", {"title": "View comment"}).find("span").text
-                ),
+                )),
             }
         )
 
