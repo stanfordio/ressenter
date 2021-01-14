@@ -29,7 +29,7 @@ def emit(obj: dict):
             obj[key] = datetime.isoformat(obj[key])
 
     if _format == "jsonl":
-        print(json.dumps(obj), file=_output)
+        _output.write((json.dumps(obj) + "\n").encode("utf-8"))
     elif _format == "csv":
         if _csv_writer == None:
             _csv_writer = csv.DictWriter(_output, obj.keys())
