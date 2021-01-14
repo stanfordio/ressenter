@@ -6,3 +6,7 @@ def parse_date(text: str) -> datetime:
         text = "now"
     
     return date_parse(text)
+
+def parse_int(text: str) -> int:
+    text = text.replace(",", "")
+    return int(text)

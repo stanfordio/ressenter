@@ -2,7 +2,7 @@ from datetime import date
 import click
 import requests
 from bs4 import BeautifulSoup
-from ..util import parse_date
+from ..util import parse_date, parse_int
 import re
 from ..output import emit
 
@@ -48,11 +48,11 @@ def pull_page(sort: str, page: int):
             "author_name": comment_elem.find("span", class_="profile-name").text,
             "author_url": comment_elem.find("a", {"target": "dissenter-profile"}).get("href"),
             "url": comment_elem.find("a", {"target": "dissenter-item"}).get("href"),
-            "url_upvotes": comment_elem.find("span", class_="stat-upvotes").text,
-            "url_downvotes": comment_elem.find("span", class_="stat-downvotes").text,
-            "url_comments": comment_elem.find("a", {"href": re.compile(r"\/discussion\/begin\/.*")}),
+            "url_upvotes": parse_int(comment_elem.find("span", class_="stat-upvotes").text),
+            "url_downvotes": parse_int(comment_elem.find("span", class_="stat-downvotes").text),
+            "url_comments": parse_int(comment_elem.find("div", class_="row no-gutters align-items-center ml-auto").text.split(" ")[0]),
             "text": comment_elem.find("div", class_="comment-body").text,
-            "replies": comment_elem.find("span", class_="stat-replies").text,
+            "replies": parse_int(comment_elem.find("span", class_="stat-replies").text),
             "time": parse_date(comment_elem.find("a", {"title": "View comment"}).find("span").text)
         })
 
