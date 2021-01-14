@@ -71,7 +71,9 @@ def pull_url_id(url: str) -> str:
         + urllib.parse.urlencode({"url": url})
     )
     soup = BeautifulSoup(resp.text, features="html.parser")
-    return soup.find("div", {"data-commenturl-id": True}).get("data-commenturl-id")
+    return try_get(
+        lambda: soup.find("div", {"data-commenturl-id": True}).get("data-commenturl-id")
+    )
 
 
 def pull_comments_page(**kwargs):

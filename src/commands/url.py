@@ -9,7 +9,10 @@ from ..util import (
 from ..output import emit
 
 
-@click.command("url")
+@click.command(
+    "url",
+    help="Pull comments for a particular URL. Note that several comment metadata items (such as upvotes, downvotes, and comments) are not available when pulling comments from a URL.",
+)
 @click.argument("url")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def command(url, sort, after_id, after_time, max):
@@ -18,7 +21,9 @@ def command(url, sort, after_id, after_time, max):
     after_id = int(after_id.strip(), 16)
     after_time = parse_date(after_time)
     url_id = pull_url_id(url)
-    print(url_id)
+
+    if url_id is None:
+        return
 
     page = 1
     total_emitted = 0
@@ -35,6 +40,8 @@ def command(url, sort, after_id, after_time, max):
                 return
             if comment["time"] < after_time:
                 return
+
+            comment["url"] = url
 
             emit(comment)
             total_emitted += 1
