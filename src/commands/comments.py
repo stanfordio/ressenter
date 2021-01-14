@@ -8,10 +8,22 @@ from ..output import emit
 
 
 @click.command("comments")
-@click.option('--sort', default="latest", help="comment sort order", type=click.Choice(['latest', 'controversial', 'top']))
-@click.option('--after-id', default="0", help="pull no earlier than this comment ID", type=str)
-@click.option('--after-time', default="Jan 1, 2000", help="pull no comments posted earlier than this time", type=str)
-@click.option('--max', help="maximum number of comments to pull", type=int)
+@click.option(
+    "--sort",
+    default="latest",
+    help="comment sort order",
+    type=click.Choice(["latest", "controversial", "top"]),
+)
+@click.option(
+    "--after-id", default="0", help="pull no earlier than this comment ID", type=str
+)
+@click.option(
+    "--after-time",
+    default="Jan 1, 2000",
+    help="pull no comments posted earlier than this time",
+    type=str,
+)
+@click.option("--max", help="maximum number of comments to pull", type=int)
 def command(sort, after_id, after_time, max):
     after_id = int(after_id.strip(), 16)
     after_time = parse_date(after_time)
@@ -31,29 +43,46 @@ def command(sort, after_id, after_time, max):
             if max is not None:
                 if total_emitted >= max:
                     return
-        
+
         page += 1
 
 
 def pull_page(sort: str, page: int):
     resp = requests.get(
-        f"https://dissenter.com/comment?v=discussion&s={sort}&p={page}&cpp=350")
+        f"https://dissenter.com/comment?v=discussion&s={sort}&p={page}&cpp=350"
+    )
     soup = BeautifulSoup(resp.text, features="html.parser")
 
     comments = []
     for comment_elem in soup.find_all("div", class_="comment-container"):
-        comments.append({
-            "id": comment_elem.get("data-comment-id").strip(),
-            "author_id": comment_elem.get("data-author-id").strip(),
-            "author_name": comment_elem.find("span", class_="profile-name").text,
-            "author_url": comment_elem.find("a", {"target": "dissenter-profile"}).get("href"),
-            "url": comment_elem.find("a", {"target": "dissenter-item"}).get("href"),
-            "url_upvotes": parse_int(comment_elem.find("span", class_="stat-upvotes").text),
-            "url_downvotes": parse_int(comment_elem.find("span", class_="stat-downvotes").text),
-            "url_comments": parse_int(comment_elem.find("div", class_="row no-gutters align-items-center ml-auto").text.split(" ")[0]),
-            "text": comment_elem.find("div", class_="comment-body").text,
-            "replies": parse_int(comment_elem.find("span", class_="stat-replies").text),
-            "time": parse_date(comment_elem.find("a", {"title": "View comment"}).find("span").text)
-        })
+        comments.append(
+            {
+                "id": comment_elem.get("data-comment-id").strip(),
+                "author_id": comment_elem.get("data-author-id").strip(),
+                "author_name": comment_elem.find("span", class_="profile-name").text,
+                "author_url": comment_elem.find(
+                    "a", {"target": "dissenter-profile"}
+                ).get("href"),
+                "url": comment_elem.find("a", {"target": "dissenter-item"}).get("href"),
+                "url_upvotes": parse_int(
+                    comment_elem.find("span", class_="stat-upvotes").text
+                ),
+                "url_downvotes": parse_int(
+                    comment_elem.find("span", class_="stat-downvotes").text
+                ),
+                "url_comments": parse_int(
+                    comment_elem.find(
+                        "div", class_="row no-gutters align-items-center ml-auto"
+                    ).text.split(" ")[0]
+                ),
+                "text": comment_elem.find("div", class_="comment-body").text,
+                "replies": parse_int(
+                    comment_elem.find("span", class_="stat-replies").text
+                ),
+                "time": parse_date(
+                    comment_elem.find("a", {"title": "View comment"}).find("span").text
+                ),
+            }
+        )
 
     return comments

@@ -5,10 +5,17 @@ import sys
 from .commands import comments
 from . import output
 
+
 @click.group()
-@click.option('--format', default="jsonl", help="output format", type=click.Choice(['jsonl', 'csv']))
+@click.option(
+    "--format",
+    default="jsonl",
+    help="output format",
+    type=click.Choice(["jsonl", "csv"]),
+)
 def cli(format):
     output.set_format(format)
+
 
 # TODO commands: comments, urls, user, url
 
