@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import click
-import sys
-from .commands import comments
+from .commands import comments, user, url, trending
 from . import output
 
 
@@ -20,3 +19,6 @@ def cli(format):
 # TODO commands: comments, urls, user, url
 
 cli.add_command(comments.command)
+cli.add_command(user.command)
+cli.add_command(url.command)
+cli.add_command(trending.command)
