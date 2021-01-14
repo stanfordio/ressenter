@@ -8,11 +8,13 @@ _format = "jsonl"
 _output = sys.stdout.buffer
 _csv_writer = None
 
+
 def set_format(format):
     global _format, _csv_writer
 
     _format = format
     _csv_writer = None
+
 
 def set_output(output):
     global _output, _csv_writer
@@ -37,6 +39,7 @@ def emit(obj: dict):
             _csv_writer = csv.DictWriter(_output, obj.keys())
             _csv_writer.writeheader()
         _csv_writer.writerow(obj)
+
 
 def close():
     _output.close()

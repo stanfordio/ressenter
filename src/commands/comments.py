@@ -1,5 +1,10 @@
 import click
-from ..util import parse_date, pull_comments_page, add_click_options, COMMENT_PAGE_OPTIONS
+from ..util import (
+    parse_date,
+    pull_comments_page,
+    add_click_options,
+    COMMENT_PAGE_OPTIONS,
+)
 from ..output import emit
 
 
@@ -11,7 +16,12 @@ def command(sort, after_id, after_time, max):
 
     page = 1
     total_emitted = 0
-    while len(page_comments := pull_comments_page(s=sort, p=page, v="discussion", cpp=350)) > 0:
+    while (
+        len(
+            page_comments := pull_comments_page(s=sort, p=page, v="discussion", cpp=350)
+        )
+        > 0
+    ):
         for comment in page_comments:
             if int(comment["id"], 16) < after_id:
                 return
