@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 # This call to setup() does all the work
 setup(
-    name="rissenter",
+    name="ressenter",
     version="0.0.1",
     description="Toolkit for Dissenter",
     long_description=README,

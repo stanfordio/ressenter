@@ -12,6 +12,7 @@ requests = "*"
 click = "*"
 unicodecsv = "*"
 dateparser = "*"
+twine = "*"
 
 [requires]
 python_version = "3.8"
