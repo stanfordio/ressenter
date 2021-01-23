@@ -4,7 +4,6 @@ import click
 from .commands import comments, user, url, trending
 from . import output
 
-
 @click.group()
 @click.option(
     "--format",
@@ -14,7 +13,6 @@ from . import output
 )
 def cli(format):
     output.set_format(format)
-
 
 cli.add_command(comments.command)
 cli.add_command(user.command)
