@@ -154,7 +154,11 @@ To run Ressenter locally, perform the following steps:
 
 ## Packaging and Publishing
 
-TODO (when/if we release on PyPi).
+1. Make sure you have access to PyPI credentials with permission for the `ressenter` repository.
+2. Clear the `dist/` folder (`rm dist/*`).
+3. Package everything with `python setup.py sdist bdist_wheel`.
+4. Check the packaging with `twine check dist/*`.
+5. Upload with `twine upload dist/*`.
 
 ## Troubleshooting
 
