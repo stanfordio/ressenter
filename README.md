@@ -144,6 +144,25 @@ ressenter trending
 ressenter url https://www.facebook.com
 ```
 
+## Module Usage
+
+To use Ressenter as a Python module, just import it and setup a listener—a function that will be called on every result. You may also want to disable the standard output. For example:
+
+```python
+import ressenter
+
+results = []
+
+ressenter.disable_standard_output()
+ressenter.result_listeners.append(results.append)
+ressenter.result_listeners.append(lambda k: print(f"Output: {k}"))
+ressenter.comments.command()
+
+print(f"Found {len(results)} results!")
+```
+
+All the commands are imported at the top-level namespace (e.g., `ressenter.comments`, `ressenter.trending`, `ressenter.url`, `ressenter.user`) and support the same arguments as their command-line equivalents. Consult the source code and the command-level docs for more information about the specific parameters supported.
+
 ## Development
 
 To run Ressenter locally, perform the following steps:
