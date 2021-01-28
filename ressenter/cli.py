@@ -3,8 +3,6 @@
 import click
 from . import output
 from .util import (
-    parse_date,
-    pull_comments_page,
     add_click_options,
     COMMENT_PAGE_OPTIONS,
 )
@@ -26,12 +24,12 @@ def cli(format):
 @click.command("comments", help="Pull all the most recent comments")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def comments_command(**kwargs):
-    return comments.command(**kwargs)
+    return comments.fetch(**kwargs)
 
 
 @click.command("trending", help="Pull the current trending URLs")
 def trending_command():
-    return trending.command()
+    return trending.fetch()
 
 
 @click.command(
@@ -41,7 +39,7 @@ def trending_command():
 @click.argument("url")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def url_command(**kwargs):
-    return url.command(**kwargs)
+    return url.fetch(**kwargs)
 
 
 @click.command(
@@ -50,7 +48,7 @@ def url_command(**kwargs):
 @click.argument("user")
 @add_click_options(COMMENT_PAGE_OPTIONS)
 def user_command(**kwargs):
-    return user.command(**kwargs)
+    return user.fetch(**kwargs)
 
 
 cli.add_command(comments_command)

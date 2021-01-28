@@ -6,7 +6,7 @@ from ..util import (
 from ..output import emit
 
 
-def fetch(url, sort, after_id, after_time, max):
+def fetch(sort="latest", after_id="0", after_time="Jan 1, 2000", max=None):
     # Note: a lot of metadata is unavailable for comments from URLs
 
     after_id = int(after_id.strip(), 16)

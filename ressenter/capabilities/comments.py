@@ -5,7 +5,7 @@ from ..util import (
 from ..output import emit
 
 
-def fetch(sort, after_id, after_time, max):
+def fetch(sort="latest", after_id="0", after_time="Jan 1, 2000", max=None):
     after_id = int(after_id.strip(), 16)
     after_time = parse_date(after_time)
 
