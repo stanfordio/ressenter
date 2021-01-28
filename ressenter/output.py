@@ -22,8 +22,10 @@ def set_output(output):
     _output = output
     _csv_writer = None
 
+
 def disable_standard_output():
     result_listeners.remove(write_standard_output)
+
 
 def write_standard_output(obj: dict):
     global _csv_writer

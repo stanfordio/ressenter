@@ -156,7 +156,7 @@ results = []
 ressenter.disable_standard_output()
 ressenter.result_listeners.append(results.append)
 ressenter.result_listeners.append(lambda k: print(f"Output: {k}"))
-ressenter.comments.command()
+ressenter.comments()
 
 print(f"Found {len(results)} results!")
 ```

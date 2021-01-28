@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from ressenter import cli
-
 if __name__ == "__main__":
+    from ressenter import cli
+
     cli.cli()

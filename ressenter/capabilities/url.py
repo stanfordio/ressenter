@@ -1,21 +1,12 @@
-import click
 from ..util import (
     parse_date,
     pull_url_id,
     pull_comments_page,
-    add_click_options,
-    COMMENT_PAGE_OPTIONS,
 )
 from ..output import emit
 
 
-@click.command(
-    "url",
-    help="Pull comments for a particular URL. Note that several comment metadata items (such as upvotes, downvotes, and comments) are not available when pulling comments from a URL.",
-)
-@click.argument("url")
-@add_click_options(COMMENT_PAGE_OPTIONS)
-def command(url, sort, after_id, after_time, max):
+def fetch(url, sort, after_id, after_time, max):
     # Note: a lot of metadata is unavailable for comments from URLs
 
     after_id = int(after_id.strip(), 16)

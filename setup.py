@@ -24,10 +24,16 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["beautifulsoup4", "requests", "click", "unicodecsv", "dateparser"],
+    install_requires=[
+        "beautifulsoup4",
+        "requests",
+        "click",
+        "unicodecsv",
+        "dateparser",
+    ],
     entry_points={
         "console_scripts": [
-            "ressenter=rissenter.cli:cli",
+            "ressenter=ressenter.cli:cli",
         ]
     },
 )

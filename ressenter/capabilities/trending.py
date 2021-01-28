@@ -1,10 +1,8 @@
-import click
 import requests
 from ..output import emit
 
 
-@click.command("trending", help="Pull the current trending URLs")
-def command():
+def fetch():
     data = requests.get("https://dissenter.com/url").json()
 
     # We currently ignore trending comments.
