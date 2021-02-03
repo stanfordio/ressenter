@@ -36,4 +36,5 @@ setup(
             "ressenter=ressenter.cli:cli",
         ]
     },
+    python_requires='>=3.8'
 )
