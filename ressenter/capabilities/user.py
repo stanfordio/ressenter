@@ -22,7 +22,7 @@ def fetch(user=None, sort="latest", after_id="0", after_time="Jan 1, 2000", max=
         for comment in page_comments:
             if int(comment["id"], 16) < after_id:
                 return
-            if comment["time"] < after_time:
+            if comment["time"] is not None and comment["time"] < after_time:
                 return
 
             emit(comment)
