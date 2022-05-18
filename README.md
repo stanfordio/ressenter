@@ -1,8 +1,8 @@
 # Ressenter
 
-Ressenter is a command line tool to pull content from Dissenter.com, a browser-based social network operated by Gab.com. (We will not reward either of these domains with hyperlinks.)
+Ressenter is a command line tool to pull content from Dissenter.com, a browser-based social network operated by Gab.com. More recently, Dissenter has been integrated into the main Gab.com site as "Gab Trends".
 
-This tool does not require any authentication with Dissenter; all the data it pulls is available publicly.
+This tool does not require any authentication with Dissenter or Gab; all the data it pulls is available publicly.
 
 Currently, this tool can:
 
@@ -15,7 +15,7 @@ Currently, this tool can:
 
 ## Robustness
 
-This tool was made by reverse engineering Dissenter's API. (To be fair, it wasn't that hard.) Because we have no insight into Dissenter's internals, there's no guarantee that this tool provides an exhaustive or reliable archive of Dissenter content.
+This tool uses Dissenter's public API. Because we have no insight into Dissenter's internals, there's no guarantee that this tool provides an exhaustive or reliable archive of Dissenter content.
 
 For example, we don't know whether comments become inaccessible after some period of time, or whether there is a limit on how many comments we can pull from any particular user.
 
